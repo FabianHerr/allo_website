@@ -210,10 +210,10 @@ const FooterSection = ({ lang, setLang }) => {
   return (
     <footer style={{ background: 'var(--paper)', borderTop: '1px solid var(--pale)' }}>
       <div className="container" style={{ paddingTop: 72, paddingBottom: 0 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 48, marginBottom: 64 }} className="footer-grid">
+        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: 48, marginBottom: 64 }} className="footer-grid">
           {/* Col 1: logo + tagline */}
           <div>
-            <div style={{ marginBottom: 14 }}>
+            <div className="footer-logo-wrap" style={{ marginBottom: 14 }}>
               <WaveMarkLogo waveHeight={24} textSize={16} animate={true} />
             </div>
             <p style={{ fontSize: 14, color: 'var(--stone)', lineHeight: 1.6, maxWidth: 220 }}>{t.tagline}</p>
@@ -223,12 +223,7 @@ const FooterSection = ({ lang, setLang }) => {
             <span className="label" style={{ marginBottom: 18 }}>Navigation</span>
             {t.navLinks.map(l => <a key={l} href="#" style={linkStyle} onMouseEnter={e=>e.target.style.opacity=0.5} onMouseLeave={e=>e.target.style.opacity=1}>{l}</a>)}
           </div>
-          {/* Col 3: Verticals */}
-          <div>
-            <span className="label" style={{ marginBottom: 18 }}>Secteurs</span>
-            {t.verticals.map(v => <a key={v} href="#" style={linkStyle} onMouseEnter={e=>e.target.style.opacity=0.5} onMouseLeave={e=>e.target.style.opacity=1}>{v}</a>)}
-          </div>
-          {/* Col 4: Contact */}
+          {/* Col 3: Contact */}
           <div>
             <span className="label" style={{ marginBottom: 18 }}>Contact</span>
             {t.contact.map(c => <span key={c} style={{ ...linkStyle, color: 'var(--stone)' }}>{c}</span>)}
@@ -236,7 +231,7 @@ const FooterSection = ({ lang, setLang }) => {
         </div>
 
         {/* Bottom bar */}
-        <div style={{ borderTop: '1px solid var(--pale)', padding: '20px 0 28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
+        <div className="footer-bottom" style={{ borderTop: '1px solid var(--pale)', padding: '20px 0 28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
           <span style={{ fontSize: 11, color: 'var(--stone)', letterSpacing: '0.04em' }}>{t.copyright}</span>
           <div style={{ display: 'flex', gap: 24, alignItems: 'center' }}>
             {t.legal.map(l => <a key={l} href="#" style={{ fontSize: 11, color: 'var(--stone)', textDecoration: 'none', transition: 'opacity 0.2s' }} onMouseEnter={e=>e.target.style.opacity=0.5} onMouseLeave={e=>e.target.style.opacity=1}>{l}</a>)}
@@ -251,7 +246,15 @@ const FooterSection = ({ lang, setLang }) => {
           <WaveMarkLogo waveHeight={20} textSize={13} />
         </div>
       </div>
-      <style>{`@media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 36px !important; } }`}</style>
+      <style>{`
+        @media (max-width: 768px) {
+          .footer-grid { grid-template-columns: 1fr !important; gap: 28px !important; margin-bottom: 40px !important; text-align: center; }
+          .footer-logo-wrap { display: flex !important; justify-content: center !important; }
+          .footer-grid p { max-width: 100% !important; }
+          .footer-bottom { justify-content: center !important; }
+          .footer-bottom > div { justify-content: center !important; }
+        }
+      `}</style>
     </footer>
   );
 };

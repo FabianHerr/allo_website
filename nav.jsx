@@ -131,7 +131,7 @@ const Nav = ({ lang, setLang }) => {
               key={link.label}
               href={link.href}
               onClick={(e) => { e.preventDefault(); handleAnchorClick(link.href); }}
-              style={{ fontFamily: 'DM Serif Display', fontSize: 48, color: 'var(--paper)', textDecoration: 'none', cursor: 'pointer', opacity: 0.92 }}
+              style={{ fontFamily: 'DM Serif Display', fontSize: 48, color: 'var(--paper)', textDecoration: 'none', cursor: 'pointer', opacity: 0.92, textAlign: 'center' }}
             >
               {link.label}
             </a>
