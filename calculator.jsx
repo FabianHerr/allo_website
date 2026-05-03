@@ -196,12 +196,12 @@ const CalculatorSection = ({ lang }) => {
         </div>
 
         {/* CTA strip */}
-        <div className="fu" data-delay="280" style={{
+        <div className="fu calc-cta-strip" data-delay="280" style={{
           background: 'var(--near-black)', borderRadius: 16,
           padding: '24px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
           gap: 20, flexWrap: 'wrap', marginBottom: 20,
         }}>
-          <p style={{ color: 'var(--paper)', fontSize: 16, fontWeight: 400 }}>
+          <p style={{ color: 'var(--paper)', fontSize: 16, fontWeight: 400, flex: 1, minWidth: 0 }}>
             {t.stripBefore}
             <strong style={{ fontFamily: 'DM Serif Display', fontSize: 20 }}>${lostPerMonth.toLocaleString()}</strong>
             {t.stripAfter}
@@ -220,6 +220,7 @@ const CalculatorSection = ({ lang }) => {
           .results-row { grid-template-columns: 1fr !important; }
           .results-row > div { border-left: none !important; border-top: 1px solid var(--pale); }
           .results-row > div:first-child { border-top: none; }
+          .calc-cta-strip { padding: 20px !important; }
         }
       `}</style>
     </section>

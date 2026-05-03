@@ -67,7 +67,7 @@ const Nav = ({ lang, setLang }) => {
   return (
     <>
       <nav style={navStyle}>
-        <div style={inner}>
+        <div style={inner} className="nav-inner">
           {/* Logo */}
           <a href="/" style={{ textDecoration: 'none' }}>
             <WaveMarkLogo waveHeight={26} textSize={17} animate={true} />
@@ -93,15 +93,15 @@ const Nav = ({ lang, setLang }) => {
           <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
             <button
               onClick={() => setLang(lang === 'fr' ? 'en' : 'fr')}
-              style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 500, color: 'var(--stone)', letterSpacing: '0.06em', fontFamily: 'DM Sans' }}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 500, color: 'var(--stone)', letterSpacing: '0.06em', fontFamily: 'DM Sans', minHeight: 44, minWidth: 44, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
             >
               {t.lang}
             </button>
-            <a className="btn btn-primary" style={{ padding: '10px 20px' }} href="#audit">{t.cta}</a>
+            <a className="btn btn-primary nav-cta" href="#audit">{t.cta}</a>
             {/* Hamburger */}
             <button
               onClick={() => setMobileOpen(true)}
-              style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'none', flexDirection: 'column', gap: 5, padding: 4 }}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'none', flexDirection: 'column', gap: 5, padding: 10, minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' }}
               className="hamburger"
               aria-label="Menu"
             >
@@ -122,7 +122,7 @@ const Nav = ({ lang, setLang }) => {
       }}>
         <button
           onClick={() => setMobileOpen(false)}
-          style={{ position: 'absolute', top: 24, right: 24, background: 'none', border: 'none', cursor: 'pointer', color: 'var(--paper)', fontSize: 28, lineHeight: 1, fontFamily: 'DM Sans' }}
+          style={{ position: 'absolute', top: 16, right: 16, background: 'none', border: 'none', cursor: 'pointer', color: 'var(--paper)', fontSize: 28, lineHeight: 1, fontFamily: 'DM Sans', minWidth: 44, minHeight: 44, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
         >✕</button>
 
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 32 }}>
@@ -147,6 +147,11 @@ const Nav = ({ lang, setLang }) => {
         @media (max-width: 768px) {
           .nav-links-desktop { display: none !important; }
           .hamburger { display: flex !important; }
+          .nav-inner { padding: 0 20px !important; }
+          .nav-cta { display: none !important; }
+        }
+        @media (min-width: 769px) {
+          .nav-cta { min-height: 44px !important; }
         }
       `}</style>
     </>

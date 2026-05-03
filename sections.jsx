@@ -177,13 +177,13 @@ const HowItWorksSection = ({ lang }) => {
   return (
     <section id="comment" style={{ background: 'var(--near-black)' }}>
       <div className="container">
-        <div style={{ textAlign: 'center', marginBottom: 72 }}>
+        <div className="steps-heading" style={{ textAlign: 'center', marginBottom: 72 }}>
           <span className="label fu" style={{ color: 'var(--stone)' }}>{t.label}</span>
           <h2 className="fu" data-delay="60" style={{ color: 'var(--paper)', maxWidth: 560, margin: '0 auto' }}>{t.h2}</h2>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 0, position: 'relative' }} className="steps-grid">
           {/* Dashed connector */}
-          <div style={{ position: 'absolute', top: 56, left: '16.7%', right: '16.7%', height: 1, borderTop: '1px dashed rgba(255,255,255,0.15)', zIndex: 0 }} />
+          <div className="steps-connector" style={{ position: 'absolute', top: 56, left: '16.7%', right: '16.7%', height: 1, borderTop: '1px dashed rgba(255,255,255,0.15)', zIndex: 0 }} />
           {t.steps.map((step, i) => (
             <div key={i} className="fu" data-delay={i * 100} style={{ padding: '0 32px', position: 'relative', zIndex: 1, textAlign: 'center' }}>
               {/* Day tag */}
@@ -191,7 +191,7 @@ const HowItWorksSection = ({ lang }) => {
                 <span style={{ border: '1px solid rgba(245,243,239,0.25)', borderRadius: 999, padding: '5px 14px', fontSize: 11, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--paper)' }}>{step.day}</span>
               </div>
               {/* Big decorative number */}
-              <div style={{ fontFamily: 'DM Serif Display', fontSize: 96, color: 'var(--paper)', opacity: 0.07, lineHeight: 1, position: 'absolute', top: -10, left: '50%', transform: 'translateX(-50%)', pointerEvents: 'none', userSelect: 'none' }}>{i + 1}</div>
+              <div className="step-deco-num" style={{ fontFamily: 'DM Serif Display', fontSize: 96, color: 'var(--paper)', opacity: 0.07, lineHeight: 1, position: 'absolute', top: -10, left: '50%', transform: 'translateX(-50%)', pointerEvents: 'none', userSelect: 'none' }}>{i + 1}</div>
               <h3 style={{ fontSize: 18, fontWeight: 500, color: 'var(--paper)', marginBottom: 12 }}>{step.title}</h3>
               <p style={{ fontSize: 14, color: 'var(--stone)', lineHeight: 1.7 }}>{step.desc}</p>
             </div>
@@ -202,7 +202,13 @@ const HowItWorksSection = ({ lang }) => {
         </div>
       </div>
       <style>{`
-        @media (max-width: 640px) { .steps-grid { grid-template-columns: 1fr !important; } }
+        @media (max-width: 640px) {
+          .steps-grid { grid-template-columns: 1fr !important; }
+          .steps-connector { display: none !important; }
+          .step-deco-num { display: none !important; }
+          .steps-grid > div { padding: 0 16px !important; }
+          .steps-heading { margin-bottom: 40px !important; }
+        }
       `}</style>
     </section>
   );
@@ -264,8 +270,8 @@ const PackagesSection = ({ lang }) => {
         </div>
 
         {showCompare && (
-          <div className="fu" style={{ background: 'var(--near-black)', borderRadius: 16, overflow: 'hidden', border: '1px solid var(--pale)' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+          <div className="fu" style={{ background: 'var(--near-black)', borderRadius: 16, overflowX: 'auto', WebkitOverflowScrolling: 'touch', border: '1px solid var(--pale)' }}>
+            <table style={{ width: '100%', minWidth: 480, borderCollapse: 'collapse', fontSize: 13 }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
                   <th style={{ padding: '16px 24px', textAlign: 'left', color: 'var(--stone)', fontWeight: 500, width: '40%' }}></th>

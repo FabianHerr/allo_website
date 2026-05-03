@@ -154,11 +154,17 @@ const BilingualSection = ({ lang }) => {
           <p style={{ fontSize: 14, color: 'rgba(245,243,239,0.75)', lineHeight: 1.75, margin: 0 }}>{t.oqlf}</p>
         </div>
 
-        <div className="fu" data-delay="200" style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
+        <div className="fu phone-cards" data-delay="200" style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
           <PhoneCard label={t.frLabel} agentName={t.agentFR} convo={t.frConvo} />
           <PhoneCard label={t.enLabel} agentName={t.agentEN} convo={t.enConvo} />
         </div>
       </div>
+      <style>{`
+        @media (max-width: 640px) {
+          .phone-cards { flex-direction: column !important; }
+          .phone-cards > div { flex: 1 1 100% !important; }
+        }
+      `}</style>
     </section>
   );
 };

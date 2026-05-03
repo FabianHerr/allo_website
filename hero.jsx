@@ -107,10 +107,10 @@ const HeroSection = ({ lang }) => {
               <a className="btn btn-ghost" href="#demo">{t.cta2}</a>
             </div>
             {/* Micro stats */}
-            <div className="fu" data-delay="320" style={{ display: 'flex', gap: 0, alignItems: 'center' }}>
+            <div className="fu stats-row" data-delay="320" style={{ display: 'flex', gap: 0, alignItems: 'center' }}>
               {t.stats.map((s, i) => (
                 <React.Fragment key={s}>
-                  {i > 0 && <div style={{ width: 1, height: 32, background: 'var(--pale)', margin: '0 20px' }} />}
+                  {i > 0 && <div className="stat-separator" style={{ width: 1, height: 32, background: 'var(--pale)', margin: '0 20px' }} />}
                   <span style={{ fontSize: 13, fontWeight: 500, color: 'var(--charcoal)', letterSpacing: '0.01em' }}>{s}</span>
                 </React.Fragment>
               ))}
@@ -123,7 +123,7 @@ const HeroSection = ({ lang }) => {
               <AlloWaves height={130} style={{ opacity: 0.88 }} />
             </div>
             {/* Floating result card */}
-            <div style={{
+            <div className="hero-float-card" style={{
               position: 'absolute', bottom: 20, right: -10,
               background: 'var(--near-black)', borderRadius: 16,
               padding: '20px 24px', minWidth: 170,
@@ -157,6 +157,12 @@ const HeroSection = ({ lang }) => {
           .bottom-stats > div { padding-left: 0 !important; border-left: none !important; border-top: 1px solid var(--pale); padding-top: 20px; }
           .bottom-stats > div:first-child { border-top: none; padding-top: 0; }
         }
+        @media (max-width: 768px) {
+          #services { padding-top: 100px !important; min-height: 100svh !important; }
+          .hero-float-card { right: 0 !important; }
+          .stats-row { flex-direction: column !important; align-items: flex-start !important; gap: 10px !important; }
+          .stat-separator { display: none !important; }
+        }
       `}</style>
     </section>
   );
@@ -169,7 +175,7 @@ const PainSection = ({ lang }) => {
   return (
     <section style={{ background: 'var(--near-black)' }}>
       <div className="container">
-        <div style={{ textAlign: 'center', marginBottom: 64 }}>
+        <div className="pain-heading-group" style={{ textAlign: 'center', marginBottom: 64 }}>
           <span className="label fu" style={{ color: 'var(--stone)' }}>{t.label}</span>
           <h2 className="fu" data-delay="60" style={{ color: 'var(--paper)', maxWidth: 600, margin: '0 auto' }}>{t.h2}</h2>
         </div>
@@ -191,7 +197,10 @@ const PainSection = ({ lang }) => {
         </div>
       </div>
       <style>{`
-        @media (max-width: 768px) { .pain-cards { grid-template-columns: 1fr !important; } }
+        @media (max-width: 768px) {
+          .pain-cards { grid-template-columns: 1fr !important; }
+          .pain-heading-group { margin-bottom: 36px !important; }
+        }
       `}</style>
     </section>
   );
