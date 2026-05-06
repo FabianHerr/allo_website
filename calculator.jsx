@@ -39,7 +39,7 @@ const CALC_COPY = {
     sub: 'Ajustez les paramètres selon votre entreprise. Voyez le gain net pour chaque forfait en temps réel.',
     modeA: 'Je prends des rendez-vous',
     modeB: 'Je reçois des appels entrants',
-    packages: ['Le Gardien', 'Le Protecteur', "L'Amplificateur"],
+    packages: ["L'Amplificateur", 'Le Protecteur', 'Le Gardien'],
     rLost: 'PERDU / MOIS',
     rRecov: 'RÉCUPÉRABLE',
     rNet: 'GAIN NET / MOIS',
@@ -56,7 +56,7 @@ const CALC_COPY = {
     sub: 'Adjust the parameters for your business. See the net gain for each plan in real time.',
     modeA: 'I take appointments',
     modeB: 'I get inbound calls',
-    packages: ['The Guardian', 'The Protector', 'The Amplifier'],
+    packages: ['The Amplifier', 'The Protector', 'The Guardian'],
     rLost: 'LOST / MONTH',
     rRecov: 'RECOVERABLE',
     rNet: 'NET GAIN / MONTH',
@@ -74,16 +74,16 @@ const PRESETS = {
   B: { calls: 25, missed: 30, value: 300, days: 22 },
 };
 
-// Recovery rates per mode [Gardien, Protecteur, Amplificateur]
+// Recovery rates per mode [Amplificateur, Protecteur, Gardien]
 const RECOVERY_RATES = {
-  A: [0.28, 0.65, 0.84],
-  B: [0.50, 0.68, 0.82],
+  A: [0.84, 0.65, 0.28],
+  B: [0.82, 0.68, 0.50],
 };
 
 const PKG_PRICES = [
-  { monthly: 640,  setup: 0    },
-  { monthly: 990,  setup: 800  },
   { monthly: 1690, setup: 1500 },
+  { monthly: 990,  setup: 800  },
+  { monthly: 640,  setup: 0    },
 ];
 
 const CalculatorSection = ({ lang }) => {
