@@ -54,7 +54,7 @@ const Nav = ({ lang, setLang }) => {
     transition: 'box-shadow 0.3s',
   };
   const inner = {
-    maxWidth: 1200, margin: '0 auto', padding: '0 40px',
+    maxWidth: 1440, margin: '0 auto', padding: '0 60px',
     height: 68, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
   };
   const linkStyle = {
