@@ -3,42 +3,30 @@ const { useState, useEffect, useRef } = React;
 
 const SLIDER_DEFS = {
   fr: {
-    default: [
-      { key: 'appts', label: 'Rendez-vous par jour', min: 5, max: 60, unit: '' },
-      { key: 'noshow', label: 'Taux de no-show', min: 5, max: 40, unit: '%' },
-      { key: 'value', label: 'Valeur moy. du rendez-vous', min: 80, max: 700, unit: '$', prefix: true },
+    A: [
+      { key: 'appts', label: 'Rendez-vous par jour', min: 2, max: 50, unit: '' },
+      { key: 'noshow', label: 'Taux de no-show', min: 5, max: 50, unit: '%' },
+      { key: 'value', label: "Valeur moy. d'un rendez-vous", min: 50, max: 1000, unit: '$', prefix: true },
       { key: 'days', label: 'Jours ouvrables par mois', min: 15, max: 26, unit: '' },
     ],
-    hvac: [
-      { key: 'appts', label: 'Appels prospects par jour', min: 2, max: 20, unit: '' },
-      { key: 'conv', label: 'Taux de conversion des appels', min: 10, max: 70, unit: '%' },
-      { key: 'value', label: "Valeur moy. d'un contrat", min: 200, max: 5000, unit: '$', prefix: true },
-      { key: 'days', label: 'Jours ouvrables par mois', min: 15, max: 26, unit: '' },
-    ],
-    other: [
-      { key: 'appts', label: 'Demandes par jour', min: 2, max: 25, unit: '' },
-      { key: 'noshow', label: 'Prospects sans suivi', min: 15, max: 70, unit: '%' },
-      { key: 'value', label: 'Valeur moy. d\'un projet', min: 200, max: 5000, unit: '$', prefix: true },
+    B: [
+      { key: 'calls', label: 'Appels entrants par jour', min: 5, max: 100, unit: '' },
+      { key: 'missed', label: "Taux d'appels manqués", min: 10, max: 60, unit: '%' },
+      { key: 'value', label: "Valeur moy. d'un appel converti", min: 50, max: 2000, unit: '$', prefix: true },
       { key: 'days', label: 'Jours ouvrables par mois', min: 15, max: 26, unit: '' },
     ],
   },
   en: {
-    default: [
-      { key: 'appts', label: 'Appointments per day', min: 5, max: 60, unit: '' },
-      { key: 'noshow', label: 'No-show rate', min: 5, max: 40, unit: '%' },
-      { key: 'value', label: 'Avg. appointment value', min: 80, max: 700, unit: '$', prefix: true },
+    A: [
+      { key: 'appts', label: 'Appointments per day', min: 2, max: 50, unit: '' },
+      { key: 'noshow', label: 'No-show rate', min: 5, max: 50, unit: '%' },
+      { key: 'value', label: 'Avg. appointment value', min: 50, max: 1000, unit: '$', prefix: true },
       { key: 'days', label: 'Working days per month', min: 15, max: 26, unit: '' },
     ],
-    hvac: [
-      { key: 'appts', label: 'Prospect calls per day', min: 2, max: 20, unit: '' },
-      { key: 'conv', label: 'Call conversion rate', min: 10, max: 70, unit: '%' },
-      { key: 'value', label: 'Avg. contract value', min: 200, max: 5000, unit: '$', prefix: true },
-      { key: 'days', label: 'Working days per month', min: 15, max: 26, unit: '' },
-    ],
-    other: [
-      { key: 'appts', label: 'Inquiries per day', min: 2, max: 25, unit: '' },
-      { key: 'noshow', label: 'Leads without follow-up', min: 15, max: 70, unit: '%' },
-      { key: 'value', label: 'Avg. project value', min: 200, max: 5000, unit: '$', prefix: true },
+    B: [
+      { key: 'calls', label: 'Inbound calls per day', min: 5, max: 100, unit: '' },
+      { key: 'missed', label: 'Missed call rate', min: 10, max: 60, unit: '%' },
+      { key: 'value', label: 'Avg. value of a converted call', min: 50, max: 2000, unit: '$', prefix: true },
       { key: 'days', label: 'Working days per month', min: 15, max: 26, unit: '' },
     ],
   },
@@ -48,52 +36,68 @@ const CALC_COPY = {
   fr: {
     label: 'CALCULATEUR DE REVENUS PERDUS',
     h2: 'Calculez ce que vous perdez ce mois-ci.',
-    sub: 'Ajustez les paramètres selon votre entreprise. Le résultat se met à jour en temps réel.',
-    verticals: ['Dentaire', 'Med Spa', 'HVAC', 'Autres entreprises'],
+    sub: 'Ajustez les paramètres selon votre entreprise. Voyez le gain net pour chaque forfait en temps réel.',
+    modeA: 'Je prends des rendez-vous',
+    modeB: 'Je reçois des appels entrants',
+    packages: ['Le Gardien', 'Le Protecteur', "L'Amplificateur"],
     rLost: 'PERDU / MOIS',
-    rRecov: 'RÉCUPÉRABLE AVEC ALLÔ',
-    rRoi: 'ROI DE VOTRE FORFAIT',
+    rRecov: 'RÉCUPÉRABLE',
+    rNet: 'GAIN NET / MOIS',
+    rPayback: 'RETOUR INTÉGRATION',
+    months: 'mois',
     stripBefore: 'Vous laissez ',
     stripAfter: ' sur la table ce mois-ci.',
     stripCta: 'Obtenir mon audit gratuit →',
     footnote: "Estimations basées sur les moyennes du secteur. Les résultats réels varient selon l'entreprise.",
-    seeMore: "Voir l'audit complet →",
   },
   en: {
     label: 'LOST REVENUE CALCULATOR',
     h2: "Calculate what you're losing this month.",
-    sub: 'Adjust the parameters for your business. Results update in real time.',
-    verticals: ['Dental', 'Med Spa', 'HVAC', 'Other businesses'],
+    sub: 'Adjust the parameters for your business. See the net gain for each plan in real time.',
+    modeA: 'I take appointments',
+    modeB: 'I get inbound calls',
+    packages: ['The Guardian', 'The Protector', 'The Amplifier'],
     rLost: 'LOST / MONTH',
-    rRecov: 'RECOVERABLE WITH ALLÔ',
-    rRoi: 'YOUR PLAN ROI',
+    rRecov: 'RECOVERABLE',
+    rNet: 'NET GAIN / MONTH',
+    rPayback: 'SETUP PAYBACK',
+    months: 'mo',
     stripBefore: "You're leaving ",
     stripAfter: ' on the table this month.',
     stripCta: 'Get my free audit →',
     footnote: 'Estimates based on industry averages. Actual results vary by business.',
-    seeMore: 'See full audit →',
   },
 };
 
 const PRESETS = {
-  0: { appts: 18, noshow: 20, value: 200,  days: 22 }, // Dental
-  1: { appts: 10, noshow: 28, value: 350,  days: 22 }, // Med Spa
-  2: { appts: 6,  conv: 40,   value: 800,  days: 22 }, // HVAC
-  3: { appts: 5,  noshow: 35, value: 1200, days: 22 }, // Other
+  A: { appts: 15, noshow: 20, value: 200, days: 22 },
+  B: { calls: 25, missed: 30, value: 300, days: 22 },
 };
+
+// Recovery rates per mode [Gardien, Protecteur, Amplificateur]
+const RECOVERY_RATES = {
+  A: [0.28, 0.65, 0.84],
+  B: [0.50, 0.68, 0.82],
+};
+
+const PKG_PRICES = [
+  { monthly: 640,  setup: 0    },
+  { monthly: 990,  setup: 800  },
+  { monthly: 1690, setup: 1500 },
+];
 
 const CalculatorSection = ({ lang }) => {
   const t = CALC_COPY[lang];
-  const [vertical, setVertical] = useState(0);
-  const [vals, setVals] = useState(PRESETS[0]);
+  const [mode, setMode] = useState('A');
+  const [vals, setVals] = useState(PRESETS.A);
   const [calcStarted, setCalcStarted] = useState(false);
   const sectionRef = useRef(null);
 
   useScrollReveal(lang);
 
   useEffect(() => {
-    setVals(PRESETS[vertical]);
-  }, [vertical]);
+    setVals(PRESETS[mode]);
+  }, [mode]);
 
   useEffect(() => {
     const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setCalcStarted(true); }, { threshold: 0.3 });
@@ -101,22 +105,21 @@ const CalculatorSection = ({ lang }) => {
     return () => obs.disconnect();
   }, []);
 
-  const sliderKey = vertical === 2 ? 'hvac' : vertical === 3 ? 'other' : 'default';
-  const sliders = SLIDER_DEFS[lang][sliderKey];
+  const sliders = SLIDER_DEFS[lang][mode];
 
-  // HVAC: lost = calls × (1 - conv%) × value × days
-  // All others: lost = appts × noshow% × value × days
-  const lostPerMonth = vertical === 2
-    ? Math.round(vals.appts * (1 - (vals.conv || 40) / 100) * vals.value * vals.days)
-    : Math.round(vals.appts * ((vals.noshow || 20) / 100) * vals.value * vals.days);
+  const lostPerMonth = mode === 'A'
+    ? Math.round((vals.appts || 15) * ((vals.noshow || 20) / 100) * (vals.value || 200) * (vals.days || 22))
+    : Math.round((vals.calls || 25) * ((vals.missed || 30) / 100) * (vals.value || 300) * (vals.days || 22));
 
-  const recoverable = Math.round(lostPerMonth * 0.72);
-  const planPrice = 997;
-  const roi = Math.round((recoverable / planPrice) * 100);
+  const rates = RECOVERY_RATES[mode];
+  const pkgResults = PKG_PRICES.map((pkg, i) => {
+    const recoverable = Math.round(lostPerMonth * rates[i]);
+    const net = recoverable - pkg.monthly;
+    const payback = pkg.setup === 0 ? null : (net <= 0 ? null : Math.ceil(pkg.setup / net));
+    return { recoverable, net, payback };
+  });
 
   const lostVal = useCountUp(lostPerMonth, 1400, calcStarted);
-  const recovVal = useCountUp(recoverable, 1400, calcStarted);
-  const roiVal = useCountUp(roi, 1400, calcStarted);
 
   const updateVal = (key, v) => setVals(prev => ({ ...prev, [key]: Number(v) }));
 
@@ -129,26 +132,26 @@ const CalculatorSection = ({ lang }) => {
           <p className="fu" data-delay="120" style={{ color: 'var(--charcoal)', maxWidth: 480, margin: '0 auto', fontSize: 16 }}>{t.sub}</p>
         </div>
 
-        {/* Vertical presets */}
-        <div className="fu" data-delay="160" style={{ display: 'flex', justifyContent: 'center', gap: 10, marginBottom: 48, flexWrap: 'wrap' }}>
-          {t.verticals.map((v, i) => (
+        {/* Mode toggle */}
+        <div className="fu" data-delay="140" style={{ display: 'flex', justifyContent: 'center', gap: 10, marginBottom: 48, flexWrap: 'wrap' }}>
+          {['A', 'B'].map(m => (
             <button
-              key={i}
-              onClick={() => setVertical(i)}
+              key={m}
+              onClick={() => setMode(m)}
               style={{
                 padding: '9px 22px', borderRadius: 999, cursor: 'pointer',
                 fontSize: 14, fontWeight: 500, fontFamily: 'DM Sans',
-                background: vertical === i ? 'var(--ink)' : 'transparent',
-                color: vertical === i ? 'var(--paper)' : 'var(--stone)',
-                border: `1px solid ${vertical === i ? 'var(--ink)' : 'var(--pale)'}`,
+                background: mode === m ? 'var(--ink)' : 'transparent',
+                color: mode === m ? 'var(--paper)' : 'var(--stone)',
+                border: `1px solid ${mode === m ? 'var(--ink)' : 'var(--pale)'}`,
                 transition: 'all 0.2s',
               }}
-            >{v}</button>
+            >{m === 'A' ? t.modeA : t.modeB}</button>
           ))}
         </div>
 
-        {/* Sliders 2x2 */}
-        <div className="calc-grid fu" data-delay="200" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 40 }}>
+        {/* Sliders 2×2 */}
+        <div className="calc-grid fu" data-delay="200" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 32 }}>
           {sliders.map((sl) => {
             const v = vals[sl.key] ?? sl.min;
             const displayVal = sl.prefix ? `$${v.toLocaleString()}` : `${v}${sl.unit}`;
@@ -174,25 +177,43 @@ const CalculatorSection = ({ lang }) => {
           })}
         </div>
 
-        {/* Results row */}
+        {/* Lost header */}
+        <div className="fu" data-delay="220" style={{ textAlign: 'center', marginBottom: 24 }}>
+          <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--stone)', marginBottom: 10 }}>{t.rLost}</div>
+          <div style={{ fontFamily: 'DM Serif Display', fontSize: 'clamp(42px, 6vw, 64px)', color: 'var(--loss)', lineHeight: 1 }}>${lostVal.toLocaleString()}</div>
+        </div>
+
+        {/* Package results — 3 columns */}
         <div className="results-row fu" data-delay="240" style={{
           display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
           border: '1px solid var(--pale)', borderRadius: 16, overflow: 'hidden', marginBottom: 20,
         }}>
-          {[
-            { label: t.rLost, value: `$${lostVal.toLocaleString()}`, accent: true },
-            { label: t.rRecov, value: `$${recovVal.toLocaleString()}` },
-            { label: t.rRoi, value: `${roiVal}%` },
-          ].map((r, i) => (
-            <div key={i} style={{
-              padding: '28px 24px',
-              borderLeft: i > 0 ? '1px solid var(--pale)' : 'none',
-              background: 'var(--paper)',
-            }}>
-              <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--stone)', marginBottom: 12 }}>{r.label}</div>
-              <div style={{ fontFamily: 'DM Serif Display', fontSize: 'clamp(28px, 3vw, 42px)', color: r.accent ? 'var(--loss)' : 'var(--ink)', lineHeight: 1 }}>{r.value}</div>
-            </div>
-          ))}
+          {t.packages.map((pkgName, i) => {
+            const r = pkgResults[i];
+            const netStr = r.net >= 0 ? `+$${r.net.toLocaleString()}` : `-$${Math.abs(r.net).toLocaleString()}`;
+            const paybackStr = r.payback === null ? '—' : `${r.payback} ${t.months}`;
+            return (
+              <div key={i} style={{
+                padding: '24px 20px',
+                borderLeft: i > 0 ? '1px solid var(--pale)' : 'none',
+                background: 'var(--paper)',
+              }}>
+                <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink)', marginBottom: 18, paddingBottom: 12, borderBottom: '1px solid var(--pale)' }}>{pkgName}</div>
+                <div style={{ marginBottom: 14 }}>
+                  <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--stone)', marginBottom: 4 }}>{t.rRecov}</div>
+                  <div style={{ fontFamily: 'DM Serif Display', fontSize: 'clamp(18px, 2.2vw, 26px)', color: 'var(--ink)', lineHeight: 1 }}>${r.recoverable.toLocaleString()}</div>
+                </div>
+                <div style={{ marginBottom: 14 }}>
+                  <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--stone)', marginBottom: 4 }}>{t.rNet}</div>
+                  <div style={{ fontFamily: 'DM Serif Display', fontSize: 'clamp(18px, 2.2vw, 26px)', color: r.net >= 0 ? 'var(--ink)' : 'var(--loss)', lineHeight: 1 }}>{netStr}</div>
+                </div>
+                <div>
+                  <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--stone)', marginBottom: 4 }}>{t.rPayback}</div>
+                  <div style={{ fontFamily: 'DM Serif Display', fontSize: 'clamp(18px, 2.2vw, 26px)', color: 'var(--ink)', lineHeight: 1 }}>{paybackStr}</div>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
         {/* CTA strip */}
@@ -209,10 +230,7 @@ const CalculatorSection = ({ lang }) => {
           <a href="#audit" className="btn btn-paper" style={{ flexShrink: 0 }}>{t.stripCta}</a>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
-          <p style={{ fontSize: 11, color: 'var(--stone)' }}>{t.footnote}</p>
-          <a href="#" style={{ fontSize: 13, color: 'var(--charcoal)', textDecoration: 'underline', textDecorationColor: 'var(--pale)' }}>{t.seeMore}</a>
-        </div>
+        <p style={{ fontSize: 11, color: 'var(--stone)' }}>{t.footnote}</p>
       </div>
       <style>{`
         @media (max-width: 640px) {
