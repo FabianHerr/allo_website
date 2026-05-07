@@ -232,8 +232,8 @@ const HowItWorksSection = ({ lang }) => {
           <div className="steps-connector" style={{ position: 'absolute', top: 56, left: '16.7%', right: '16.7%', height: 1, borderTop: '1px dashed rgba(255,255,255,0.15)', zIndex: 0 }} />
           {t.steps.map((step, i) => (
             <div key={i} className="fu" data-delay={i * 100} style={{ padding: '0 32px', position: 'relative', zIndex: 1, textAlign: 'center' }}>
-              <div style={{ display: 'inline-flex', marginBottom: 12 }}>
-                <span style={{ border: '1px solid rgba(245,243,239,0.25)', borderRadius: 999, padding: '5px 14px', fontSize: 11, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--paper)' }}>{step.day}</span>
+              <div style={{ marginBottom: 12 }}>
+                <span style={{ display: 'inline-block', border: '1px solid rgba(245,243,239,0.25)', borderRadius: 999, padding: '5px 14px', fontSize: 11, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--paper)' }}>{step.day}</span>
               </div>
               <div className="step-deco-num" style={{ fontFamily: 'DM Serif Display', fontSize: 96, color: 'var(--paper)', opacity: 0.07, lineHeight: 1, marginBottom: 16, pointerEvents: 'none', userSelect: 'none' }}>{i + 1}</div>
               <h3 style={{ fontSize: 18, fontWeight: 500, color: 'var(--paper)', marginBottom: 12 }}>{step.title}</h3>
