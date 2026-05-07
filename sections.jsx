@@ -229,7 +229,7 @@ const HowItWorksSection = ({ lang }) => {
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 0, position: 'relative' }} className="steps-grid">
           {/* Dashed connector */}
-          <div className="steps-connector" style={{ position: 'absolute', top: 56, left: '16.7%', right: '16.7%', height: 1, borderTop: '1px dashed rgba(255,255,255,0.15)', zIndex: 0 }} />
+          <div className="steps-connector" style={{ position: 'absolute', top: 85, left: '16.7%', right: '16.7%', height: 1, borderTop: '1px dashed rgba(255,255,255,0.15)', zIndex: 0 }} />
           {t.steps.map((step, i) => (
             <div key={i} className="fu" data-delay={i * 100} style={{ padding: '0 32px', position: 'relative', zIndex: 1, textAlign: 'center' }}>
               <div style={{ marginBottom: 12 }}>
