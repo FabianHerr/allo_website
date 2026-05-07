@@ -43,7 +43,6 @@ const PKG_COPY = {
         cta: 'Discuter de cette solution',
         limit: '4 000 minutes incluses · 0,35 $/min supplémentaire',
         onboarding: "Intégration 7 à 10 jours ouvrables (audit de base de données + segmentation inclus)",
-        auditNote: "Votre audit gratuit définit vos automatisations — parce que chaque entreprise est différente.",
         features: [
           "Tout le forfait Le Protecteur inclus",
           "Contacts inactifs 3 à 24 mois contactés automatiquement (anciens clients, leads froids, demandes incomplètes)",
@@ -65,7 +64,6 @@ const PKG_COPY = {
         cta: "Commencer l'intégration",
         limit: '2 000 minutes incluses · 0,35 $/min supplémentaire',
         onboarding: "Support < 4 h · Intégration 5 à 8 jours ouvrables",
-        auditNote: "Pas de réactivation de contacts dormants — c'est L'Amplificateur",
         features: [
           "Tout le forfait Le Gardien inclus",
           "Chaque nouveau lead reçoit 3+ contacts sur 7 à 14 jours (SMS + appel)",
@@ -85,7 +83,6 @@ const PKG_COPY = {
         cta: 'Voir les détails',
         limit: '1 000 minutes incluses · 0,35 $/min supplémentaire',
         onboarding: "Intégration gratuite · 3 à 5 jours ouvrables",
-        auditNote: "Pas de suivi sortant — c'est Le Protecteur",
         features: [
           "Tous les appels entrants répondus 24h/24 7j/7 FR+EN — pas de messagerie vocale",
           "Nouveaux leads qualifiés dès le premier appel (budget, service, urgence, zone)",
@@ -135,7 +132,6 @@ const PKG_COPY = {
         cta: 'Discuss this solution',
         limit: '4,000 minutes included · $0.35/min after',
         onboarding: "Onboarding 7–10 business days (includes database audit + segmentation)",
-        auditNote: "Your free audit defines your automations — because every business is different.",
         features: [
           "Everything in The Protector",
           "Contacts inactive 3–24 months contacted automatically (past clients, dead leads, incomplete inquiries)",
@@ -157,7 +153,6 @@ const PKG_COPY = {
         cta: 'Start onboarding',
         limit: '2,000 minutes included · $0.35/min after',
         onboarding: "Support < 4 h · Onboarding 5–8 business days",
-        auditNote: "No dormant contact reactivation — that's The Amplifier",
         features: [
           "Everything in The Guardian",
           "Every new lead gets 3+ follow-up touchpoints over 7–14 days (SMS + call)",
@@ -177,7 +172,6 @@ const PKG_COPY = {
         cta: 'See details',
         limit: '1,000 minutes included · $0.35/min after',
         onboarding: "Onboarding free · 3–5 business days",
-        auditNote: "No outbound follow-up — that's The Protector",
         features: [
           "Every inbound call answered 24/7 FR+EN — no voicemail",
           "New leads qualified on first call (budget, service, urgency, location)",
@@ -303,12 +297,7 @@ const PackagesSection = ({ lang }) => {
                 <span style={{ fontSize: 15, color: 'var(--stone)' }}>{t.mo}</span>
               </div>
               <div style={{ fontSize: 11, color: 'var(--stone)', letterSpacing: '0.02em', marginBottom: 4 }}>{plan.limit}</div>
-              <div style={{ fontSize: 11, color: 'var(--stone)', letterSpacing: '0.02em', marginBottom: plan.auditNote ? 12 : 20 }}>{plan.onboarding}</div>
-              {plan.auditNote && (
-                <p style={{ fontSize: 12, color: 'var(--charcoal)', fontStyle: 'italic', lineHeight: 1.5, marginBottom: 16, borderLeft: '2px solid var(--pale)', paddingLeft: 10 }}>
-                  {plan.auditNote}
-                </p>
-              )}
+              <div style={{ fontSize: 11, color: 'var(--stone)', letterSpacing: '0.02em', marginBottom: 20 }}>{plan.onboarding}</div>
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 32, flex: 1 }}>
                 {plan.features.map((f, j) => (
                   <li key={j} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontSize: 13, color: 'var(--charcoal)', lineHeight: 1.45 }}>
