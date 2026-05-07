@@ -227,9 +227,9 @@ const HowItWorksSection = ({ lang }) => {
           <span className="label fu" style={{ color: 'var(--stone)' }}>{t.label}</span>
           <h2 className="fu" data-delay="60" style={{ color: 'var(--paper)', maxWidth: 560, margin: '0 auto' }}>{t.h2}</h2>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 0, position: 'relative' }} className="steps-grid">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 0, position: 'relative', zIndex: 0 }} className="steps-grid">
           {/* Dashed connector */}
-          <div className="steps-connector" style={{ position: 'absolute', top: 85, left: '16.7%', right: '16.7%', height: 1, borderTop: '1px dashed rgba(255,255,255,0.15)', zIndex: 0 }} />
+          <div className="steps-connector" style={{ position: 'absolute', top: 85, left: '16.7%', right: '16.7%', height: 1, borderTop: '1px dashed rgba(255,255,255,0.15)', zIndex: -1 }} />
           {t.steps.map((step, i) => (
             <div key={i} className="fu" data-delay={i * 100} style={{ padding: '0 32px', position: 'relative', zIndex: 1, textAlign: 'center' }}>
               <div style={{ marginBottom: 12 }}>
