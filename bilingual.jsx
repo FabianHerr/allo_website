@@ -84,7 +84,7 @@ const FOOTER_COPY = {
     tagline: 'Automatisation pour les entreprises de service · Montréal',
     navLinks: ['Services', 'Comment ça marche', 'Calculateur'],
     verticals: ['Cliniques dentaires', 'Med Spas', 'Entreprises HVAC'],
-    contact: ['Montréal, QC'],
+    contact: ['Montréal, QC', 'contact@alloagency.co'],
     legal: ['Politique de confidentialité', "Conditions d'utilisation"],
     copyright: '© 2025 Allô · Montréal, QC',
   },
@@ -92,7 +92,7 @@ const FOOTER_COPY = {
     tagline: 'Automation for service businesses · Montreal',
     navLinks: ['Services', 'How it works', 'Calculator'],
     verticals: ['Dental Clinics', 'Med Spas', 'HVAC Companies'],
-    contact: ['Montreal, QC'],
+    contact: ['Montreal, QC', 'contact@alloagency.co'],
     legal: ['Privacy Policy', 'Terms of Use'],
     copyright: '© 2025 Allô · Montreal, QC',
   },
@@ -226,7 +226,10 @@ const FooterSection = ({ lang, setLang }) => {
           {/* Col 3: Contact */}
           <div>
             <span className="label" style={{ marginBottom: 18 }}>Contact</span>
-            {t.contact.map(c => <span key={c} style={{ ...linkStyle, color: 'var(--stone)' }}>{c}</span>)}
+            {t.contact.map(c => c.includes('@')
+              ? <a key={c} href={`mailto:${c}`} style={{ ...linkStyle, color: 'var(--stone)' }} onMouseEnter={e=>e.target.style.opacity=0.5} onMouseLeave={e=>e.target.style.opacity=1}>{c}</a>
+              : <span key={c} style={{ ...linkStyle, color: 'var(--stone)' }}>{c}</span>
+            )}
           </div>
         </div>
 
